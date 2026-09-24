@@ -111,7 +111,7 @@ app.UseCors("AllowAngular");
     app.UseSwaggerUI();
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
