@@ -1,0 +1,173 @@
+<div class="orders-page">
+
+  <!-- Header -->
+  <div class="orders-header">
+
+    <a routerLink="/home" class="back-button">
+      ← Back to Restaurants
+    </a>
+
+    <h1>My Orders 📦</h1>
+
+    <p>Track and manage your food orders.</p>
+
+  </div>
+
+
+  <!-- Orders -->
+  <div class="orders-container">
+
+    @for (order of orders(); track order.id) {
+
+      <div class="order-card">
+
+        <!-- Order Header -->
+        <div class="order-header">
+
+          <div>
+            <h2>Order #{{ order.id }}</h2>
+
+            <p class="restaurant-name">
+              {{ order.restaurant.name }}
+            </p>
+          </div>
+
+          <span
+            class="status"
+            [class.pending]="order.status === 'Pending'"
+            [class.accepted]="order.status === 'Accepted'"
+            [class.preparing]="order.status === 'Preparing'"
+            [class.ready]="order.status === 'Ready'"
+            [class.assigned]="order.status === 'Assigned'"
+            [class.picked-up]="order.status === 'PickedUp'"
+            [class.on-the-way]="order.status === 'OnTheWay'"
+            [class.delivered]="order.status === 'Delivered'"
+            [class.cancelled]="order.status === 'Cancelled'"
+            [class.rejected]="order.status === 'Rejected'">
+
+            {{ order.status }}
+
+          </span>
+
+        </div>
+
+
+        <!-- Delivery Address -->
+        <div class="address-section">
+
+          <span class="section-label">
+            📍 Delivery Address
+          </span>
+
+          <p>
+            {{ order.deliveryAddress }}
+          </p>
+
+        </div>
+
+
+        <!-- Items -->
+        <div class="items-section">
+
+          <h3>Items</h3>
+
+          @for (item of order.items; track item.id) {
+
+            <div class="order-item">
+
+              <div class="item-name">
+
+                <span class="food-icon">
+                  🍽️
+                </span>
+
+                <span>
+                  {{ item.menuItemName }}
+                </span>
+
+              </div>
+
+              <span class="quantity">
+                × {{ item.quantity }}
+              </span>
+
+              <strong class="item-price">
+                ₹{{ item.subTotal }}
+              </strong>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="order-footer">
+
+          <div class="total">
+
+            <span>Total Amount</span>
+
+            <strong>
+              ₹{{ order.totalAmount }}
+            </strong>
+
+          </div>
+
+
+          <div class="order-actions">
+
+            @if (order.status === 'Pending') {
+
+              <button
+                type="button"
+                class="cancel-button"
+                (click)="cancelOrder(order.id)">
+
+                Cancel Order
+
+              </button>
+
+            }
+
+            <a
+              [routerLink]="['/order', order.id]"
+              class="details-button">
+
+              View Details →
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    } @empty {
+
+      <!-- Empty Orders -->
+      <div class="empty-orders">
+
+        <div class="empty-icon">
+          📦
+        </div>
+
+        <h2>No orders yet</h2>
+
+        <p>
+          You haven't placed any orders yet.
+        </p>
+
+        <a routerLink="/home" class="explore-button">
+          Explore Restaurants
+        </a>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

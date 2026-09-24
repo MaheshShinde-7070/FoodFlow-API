@@ -1,0 +1,58 @@
+<div class="auth-container">
+
+  <div class="auth-card">
+
+    <div class="icon">🚴</div>
+
+    <h2>Become a Delivery Partner</h2>
+
+    <p class="subtitle">
+      Deliver food. Earn money. Grow with FoodFlow.
+    </p>
+
+    <form (ngSubmit)="register()">
+
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="name"
+        placeholder="Full Name"
+        required>
+
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Email"
+        required>
+
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Password"
+        required>
+
+      <input
+        type="text"
+        name="vehicleType"
+        [(ngModel)]="vehicleType"
+        placeholder="Vehicle Type (Bike / Car)"
+        required>
+
+      <input
+        type="text"
+        name="vehicleNumber"
+        [(ngModel)]="vehicleNumber"
+        placeholder="Vehicle Number"
+        required>
+
+      <button type="submit">
+        Register as Delivery Partner
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

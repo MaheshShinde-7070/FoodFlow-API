@@ -1,0 +1,164 @@
+<div class="checkout-page">
+
+  <!-- Header -->
+  <div class="checkout-header">
+
+    <a routerLink="/cart" class="back-button">
+      ← Back to Cart
+    </a>
+
+    <h1>Checkout 🧾</h1>
+
+    <p>Review your order and place it.</p>
+
+  </div>
+
+
+  @if (cartService.cartItems().length === 0) {
+
+    <!-- Empty Cart -->
+    <div class="empty-checkout">
+
+      <div class="empty-icon">
+        🛒
+      </div>
+
+      <h2>Your cart is empty</h2>
+
+      <p>
+        Add some delicious food before checking out.
+      </p>
+
+      <a routerLink="/home" class="home-button">
+        Explore Restaurants
+      </a>
+
+    </div>
+
+  } @else {
+
+    <div class="checkout-layout">
+
+      <!-- Order Details -->
+      <div class="order-section">
+
+        <div class="section-card">
+
+          <h2>Delivery Address 📍</h2>
+
+          <div class="address-box">
+
+            <strong>Delivery Address</strong>
+
+            <p>
+              Pune, Maharashtra
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- Order Items -->
+        <div class="section-card">
+
+          <h2>Order Summary</h2>
+
+          <div class="order-items">
+
+            @for (item of cartService.cartItems(); track item.id) {
+
+              <div class="order-item">
+
+                <div class="food-icon">
+                  🍽️
+                </div>
+
+                <div class="item-info">
+
+                  <h3>{{ item.name }}</h3>
+
+                  <p>
+                    ₹{{ item.price }} × {{ item.quantity }}
+                  </p>
+
+                </div>
+
+                <strong class="item-total">
+                  ₹{{ item.price * item.quantity }}
+                </strong>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Price Summary -->
+      <div class="price-card">
+
+        <h2>Bill Details</h2>
+
+        <div class="price-row">
+
+          <span>Items</span>
+
+          <span>
+            {{ cartService.cartItems().length }}
+          </span>
+
+        </div>
+
+        <div class="price-row">
+
+          <span>Subtotal</span>
+
+          <span>
+            ₹{{ getTotal() }}
+          </span>
+
+        </div>
+
+        <div class="price-row">
+
+          <span>Delivery Fee</span>
+
+          <span>
+            Free
+          </span>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="final-total">
+
+          <span>Total</span>
+
+          <strong>
+            ₹{{ getTotal() }}
+          </strong>
+
+        </div>
+
+        <button
+          type="button"
+          class="place-order-button"
+          (click)="placeOrder()">
+
+          Place Order
+
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

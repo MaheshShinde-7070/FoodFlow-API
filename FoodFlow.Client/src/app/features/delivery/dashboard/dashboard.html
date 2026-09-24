@@ -1,0 +1,265 @@
+<div class="dashboard-page">
+
+  <!-- Page Header -->
+  <div class="dashboard-header">
+
+    <div>
+      <h1>Delivery Dashboard 🚴</h1>
+
+      <p>
+        Manage your assigned food deliveries.
+      </p>
+    </div>
+
+    <div class="order-count">
+      {{ orders().length }} Orders
+    </div>
+
+  </div>
+
+
+  <!-- Vehicle Details -->
+  @if (deliveryPartner(); as partner) {
+
+    <div class="vehicle-card">
+
+      <div class="vehicle-icon">
+        🛵
+      </div>
+
+      <div class="vehicle-info">
+
+        <h2>
+          Your Vehicle
+        </h2>
+
+        <div class="vehicle-details">
+
+          <div class="vehicle-detail">
+            <span class="vehicle-label">
+              Vehicle Type
+            </span>
+
+            <strong>
+              {{ partner.vehicleType }}
+            </strong>
+          </div>
+
+          <div class="vehicle-detail">
+            <span class="vehicle-label">
+              Vehicle Number
+            </span>
+
+            <strong>
+              {{ partner.vehicleNumber }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- Empty State -->
+  @if (orders().length === 0) {
+
+    <div class="empty-orders">
+
+      <div class="empty-icon">
+        📦
+      </div>
+
+      <h2>No orders assigned</h2>
+
+      <p>
+        New delivery assignments will appear here.
+      </p>
+
+    </div>
+
+  }
+
+
+  <!-- Orders -->
+  <div class="orders-container">
+
+    @for (order of orders(); track order.id) {
+
+      <div class="order-card">
+
+
+        <!-- Order Header -->
+        <div class="order-header">
+
+          <div>
+
+            <h2>
+              Order #{{ order.id }}
+            </h2>
+
+            <p>
+              FoodFlow Delivery
+            </p>
+
+          </div>
+
+
+          <span
+            class="status"
+            [class.assigned]="order.status === 'Assigned'"
+            [class.accepted]="order.status === 'Accepted'"
+            [class.picked-up]="order.status === 'PickedUp'"
+            [class.on-the-way]="order.status === 'OnTheWay'"
+            [class.delivered]="order.status === 'Delivered'">
+
+            {{ order.status }}
+
+          </span>
+
+        </div>
+
+
+        <!-- Delivery Address -->
+        <div class="address-section">
+
+          <span class="section-label">
+            📍 Delivery Address
+          </span>
+
+          <p>
+            {{ order.deliveryAddress }}
+          </p>
+
+        </div>
+
+
+        <!-- Order Items -->
+        <div class="items-section">
+
+          <h3>
+            Order Items
+          </h3>
+
+          @for (
+            item of order.items;
+            track item.id
+          ) {
+
+            <div class="order-item">
+
+              <div class="item-name">
+
+                <span class="food-icon">
+                  🍽️
+                </span>
+
+                <span>
+                  {{ item.menuItemName }}
+                </span>
+
+              </div>
+
+              <span class="quantity">
+                × {{ item.quantity }}
+              </span>
+
+              <strong>
+                ₹{{ item.subTotal }}
+              </strong>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- Order Footer -->
+        <div class="order-footer">
+
+          <!-- Total -->
+          <div class="total-section">
+
+            <span>
+              Total Amount
+            </span>
+
+            <strong>
+              ₹{{ order.totalAmount }}
+            </strong>
+
+          </div>
+
+
+          <!-- Actions -->
+          <div class="actions">
+
+            <!-- Assigned -->
+            @if (order.status === 'Assigned') {
+
+              <button
+                type="button"
+                class="primary-button"
+                (click)="acceptDelivery(order.id)">
+
+                ✓ Accept Delivery
+
+              </button>
+
+            }
+
+
+            <!-- Picked Up -->
+            @if (order.status === 'PickedUp') {
+
+              <button
+                type="button"
+                class="primary-button"
+                (click)="markOnTheWay(order.id)">
+
+                🛵 Start Delivery
+
+              </button>
+
+            }
+
+
+            <!-- On The Way -->
+            @if (order.status === 'OnTheWay') {
+
+              <button
+                type="button"
+                class="delivered-button"
+                (click)="markDelivered(order.id)">
+
+                ✓ Mark Delivered
+
+              </button>
+
+            }
+
+
+            <!-- Delivered -->
+            @if (order.status === 'Delivered') {
+
+              <div class="completed-message">
+                ✓ Delivery completed successfully.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

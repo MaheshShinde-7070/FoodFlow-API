@@ -1,0 +1,53 @@
+<div class="home-page">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>FoodFlow 🍔</h1>
+      <p>Discover the best food around you</p>
+    </div>
+  </section>
+
+  <!-- Restaurant Section -->
+  <section class="restaurants-section">
+
+    <div class="section-header">
+      <h2>Restaurants near you</h2>
+      <p>Explore restaurants and order your favourite food</p>
+    </div>
+
+    <div class="restaurant-grid">
+
+      @for (restaurant of restaurants(); track $index) {
+
+        <div class="restaurant-card">
+
+          <div class="restaurant-image">
+            🍽️
+          </div>
+
+          <div class="restaurant-content">
+
+            <h3>{{ restaurant.name }}</h3>
+
+            <p class="description">
+              {{ restaurant.description }}
+            </p>
+
+            <a
+              class="menu-button"
+              [routerLink]="['/menu', restaurant.id]">
+              View Menu
+            </a>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,78 @@
+<div class="menu-page">
+
+  <!-- Back Button -->
+  <a routerLink="/home" class="back-button">
+    ← Back to Restaurants
+  </a>
+
+  <!-- Header -->
+  <div class="menu-header">
+    <h1>Explore Our Menu 🍽️</h1>
+    <p>Choose your favourite dishes and add them to your cart.</p>
+  </div>
+
+  <!-- Menu Items -->
+  <div class="menu-grid">
+
+    @for (item of menuItems(); track item.id) {
+
+      <div
+        class="menu-card"
+        [class.added]="isAdded(item.id)"
+      >
+
+        <!-- Food Image -->
+        <div class="food-image">
+
+          @if (isAdded(item.id)) {
+            <span class="check-icon">✓</span>
+          } @else {
+            <span>🍽️</span>
+          }
+
+        </div>
+
+        <div class="menu-content">
+
+          <h3>{{ item.name }}</h3>
+
+          <p class="description">
+            {{ item.description }}
+          </p>
+
+          <div class="menu-bottom">
+
+            <strong class="price">
+              ₹{{ item.price }}
+            </strong>
+
+            @if (isAdded(item.id)) {
+
+              <button
+                type="button"
+                class="added-button"
+                disabled>
+                ✓ Added to Cart
+              </button>
+
+            } @else {
+
+              <button
+                type="button"
+                (click)="addToCart(item)">
+                Add to Cart
+              </button>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

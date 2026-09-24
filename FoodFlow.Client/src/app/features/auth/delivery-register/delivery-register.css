@@ -1,0 +1,180 @@
+/* ================================
+   FoodFlow Delivery Registration
+   ================================ */
+
+.auth-container {
+  min-height: calc(100vh - 65px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.88),
+      rgba(255, 255, 255, 0.94)
+    ),
+    url("https://images.unsplash.com/photo-1526367790999-0150786686a2")
+    center / cover no-repeat;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+
+  padding: 40px;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.12);
+
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Icon */
+
+.icon {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  background: #fff1eb;
+
+  font-size: 30px;
+}
+
+/* Heading */
+
+.auth-card h2 {
+  text-align: center;
+
+  font-size: 28px;
+  font-weight: 600;
+
+  color: #1c1c1c;
+
+  margin-bottom: 8px;
+}
+
+/* Subtitle */
+
+.subtitle {
+  text-align: center;
+
+  color: #696969;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  margin-bottom: 28px;
+}
+
+/* Form */
+
+.auth-card form {
+  width: 100%;
+  max-width: none;
+}
+
+/* Inputs */
+
+.auth-card input {
+  width: 100%;
+  height: 50px;
+
+  padding: 0 15px;
+
+  margin-bottom: 16px;
+
+  border: 1px solid #d9d9d9;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1c1c1c;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.auth-card input::placeholder {
+  color: #9a9a9a;
+}
+
+.auth-card input:focus {
+  border-color: #ff5722;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 87, 34, 0.1);
+}
+
+/* Button */
+
+.auth-card button {
+  width: 100%;
+  min-height: 50px;
+
+  margin-top: 5px;
+
+  padding: 12px 15px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #ff5722;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.auth-card button:hover {
+  background: #e64a19;
+}
+
+.auth-card button:active {
+  transform: scale(0.98);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .auth-container {
+    padding: 25px 15px;
+  }
+
+  .auth-card {
+    padding: 30px 22px;
+  }
+
+  .auth-card h2 {
+    font-size: 24px;
+  }
+
+}

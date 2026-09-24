@@ -1,0 +1,502 @@
+<div class="orders-page">
+
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+
+    <div>
+
+      <h1>Restaurant Orders 🍽️</h1>
+
+      @if (restaurant(); as restaurant) {
+
+      <div class="restaurant-name">
+        🍽️ {{ restaurant.name }}
+      </div>
+
+      }
+
+      <p>
+        Manage incoming orders and deliveries.
+      </p>
+
+    </div>
+
+    <div class="dashboard-actions">
+
+      <button type="button" class="menu-button" routerLink="/admin/menu">
+
+        🍽️ Manage Menu
+
+      </button>
+
+      <div class="order-count">
+        {{ orders().length }} Orders
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <!-- Dashboard Statistics -->
+  <div class="stats-container">
+
+    <!-- Total Orders -->
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        📦
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Total Orders
+        </span>
+
+        <strong>
+          {{ getTotalOrders() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Assigned Orders -->
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        🚴
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Assigned Orders
+        </span>
+
+        <strong>
+          {{ getAssignedOrders() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Delivered Orders -->
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ✅
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Delivered Orders
+        </span>
+
+        <strong>
+          {{ getDeliveredOrders() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Rejected Orders -->
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ❌
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Rejected Orders
+        </span>
+
+        <strong>
+          {{ getRejectedOrders() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Today's Collection -->
+    <div class="stat-card collection-card">
+
+      <div class="stat-icon">
+        💰
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Today's Collection
+        </span>
+
+        <strong>
+          ₹{{ getTodaysCollection() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Empty Orders -->
+  @if (orders().length === 0) {
+
+  <div class="empty-orders">
+
+    <div class="empty-icon">
+      📦
+    </div>
+
+    <h2>
+      No orders yet
+    </h2>
+
+    <p>
+      New customer orders will appear here.
+    </p>
+
+  </div>
+
+  }
+
+
+  <!-- Orders -->
+  <div class="orders-container">
+
+    @for (order of orders(); track order.id) {
+
+    <div class="order-card">
+
+
+      <!-- Order Header -->
+      <div class="order-header">
+
+        <div>
+
+          <h2>
+            Order #{{ order.id }}
+          </h2>
+
+          <p>
+            FoodFlow Order
+          </p>
+
+        </div>
+
+
+        <!-- Status -->
+        <span class="status" [class.pending]="
+              order.status === 'Pending'
+            " [class.accepted]="
+              order.status === 'Accepted'
+            " [class.preparing]="
+              order.status === 'Preparing'
+            " [class.ready]="
+              order.status === 'Ready'
+            " [class.assigned]="
+              order.status === 'Assigned'
+            " [class.picked-up]="
+              order.status === 'PickedUp'
+            " [class.on-the-way]="
+              order.status === 'OnTheWay'
+            " [class.delivered]="
+              order.status === 'Delivered'
+            " [class.rejected]="
+              order.status === 'Rejected'
+            " [class.cancelled]="
+              order.status === 'Cancelled'
+            ">
+
+          {{ order.status }}
+
+        </span>
+
+      </div>
+
+
+      <!-- Delivery Address -->
+      <div class="address-section">
+
+        <span class="section-label">
+          📍 Delivery Address
+        </span>
+
+        <p>
+          {{ order.deliveryAddress }}
+        </p>
+
+      </div>
+
+
+      <!-- Order Items -->
+      <div class="items-section">
+
+        <h3>
+          Order Items
+        </h3>
+
+        @for (
+        item of order.items;
+        track item.id
+        ) {
+
+        <div class="order-item">
+
+          <div class="item-name">
+
+            <span class="food-icon">
+              🍽️
+            </span>
+
+            <span>
+              {{ item.menuItemName }}
+            </span>
+
+          </div>
+
+          <span class="quantity">
+            × {{ item.quantity }}
+          </span>
+
+          <strong>
+            ₹{{ item.subTotal }}
+          </strong>
+
+        </div>
+
+        }
+
+      </div>
+
+
+      <!-- Order Footer -->
+      <div class="order-footer">
+
+
+        <!-- Total -->
+        <div class="total-section">
+
+          <span>
+            Total Amount
+          </span>
+
+          <strong>
+            ₹{{ order.totalAmount }}
+          </strong>
+
+        </div>
+
+
+        <!-- Actions -->
+        <div class="actions">
+
+
+          <!-- Pending -->
+          @if (
+          order.status === 'Pending'
+          ) {
+
+          <button type="button" class="primary-button" (click)="acceptOrder(order.id)">
+
+            ✓ Accept Order
+
+          </button>
+
+          <button type="button" class="danger-button" (click)="rejectOrder(order.id)">
+
+            ✕ Reject Order
+
+          </button>
+
+          }
+
+
+          <!-- Accepted -->
+          @if (
+          order.status === 'Accepted'
+          ) {
+
+          <button type="button" class="primary-button" (click)="markPreparing(order.id)">
+
+            👨‍🍳 Start Preparing
+
+          </button>
+
+          }
+
+
+          <!-- Preparing -->
+          @if (
+          order.status === 'Preparing'
+          ) {
+
+          <button type="button" class="primary-button" (click)="markReady(order.id)">
+
+            ✓ Mark Ready
+
+          </button>
+
+          }
+
+
+          <!-- Ready -->
+          @if (
+          order.status === 'Ready'
+          ) {
+
+          <div class="assignment-section">
+
+            <label>
+              Delivery Partner
+            </label>
+
+            <select [(ngModel)]="selectedPartnerId">
+
+              <option [ngValue]="null">
+
+                Select Delivery Partner
+
+              </option>
+
+              @for (
+              partner of deliveryPartners();
+              track partner.id
+              ) {
+
+              <option [ngValue]="partner.id">
+
+                {{ partner.vehicleType }}
+                -
+                {{ partner.vehicleNumber }}
+
+              </option>
+
+              }
+
+            </select>
+
+            <button type="button" class="primary-button" (click)="
+                    assignDeliveryPartner(order.id)
+                  ">
+
+              🚴 Assign Partner
+
+            </button>
+
+          </div>
+
+          }
+
+
+          <!-- Assigned -->
+          @if (
+          order.status === 'Assigned'
+          ) {
+
+          <div class="status-message">
+
+            🚴 Delivery partner assigned.
+            Waiting for pickup.
+
+          </div>
+
+          }
+
+
+          <!-- Picked Up -->
+          @if (
+          order.status === 'PickedUp'
+          ) {
+
+          <div class="status-message">
+
+            📦 Order picked up by delivery partner.
+
+          </div>
+
+          }
+
+
+          <!-- On The Way -->
+          @if (
+          order.status === 'OnTheWay'
+          ) {
+
+          <div class="status-message">
+
+            🛵 Order is on the way.
+
+          </div>
+
+          }
+
+
+          <!-- Delivered -->
+          @if (
+          order.status === 'Delivered'
+          ) {
+
+          <div class="completed-message">
+
+            ✓ Order delivered successfully.
+
+          </div>
+
+          }
+
+
+          <!-- Rejected -->
+          @if (
+          order.status === 'Rejected'
+          ) {
+
+          <div class="rejected-message">
+
+            ✕ Order rejected.
+
+          </div>
+
+          }
+
+
+          <!-- Cancelled -->
+          @if (
+          order.status === 'Cancelled'
+          ) {
+
+          <div class="cancelled-message">
+
+            ⚠ Order cancelled by customer.
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+    }
+
+  </div>
+
+</div>

@@ -1,0 +1,73 @@
+
+/* ================================
+   Back Button
+   ================================ */
+
+.back-button {
+  display: inline-block;
+
+  margin-bottom: 25px;
+
+  color: #ff5722;
+
+  text-decoration: none;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  color: #e64a19;
+}
+
+
+/* ================================
+   Added Item
+   ================================ */
+
+.menu-card.added {
+  border: 2px solid #4caf50;
+}
+
+
+/* ================================
+   Check Icon
+   ================================ */
+
+.check-icon {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #4caf50;
+
+  color: white;
+
+  font-size: 40px;
+  font-weight: bold;
+}
+
+
+/* ================================
+   Added Button
+   ================================ */
+
+.menu-bottom .added-button {
+  background: #4caf50;
+
+  cursor: default;
+
+  opacity: 1;
+}
+
+.menu-bottom .added-button:hover {
+  background: #4caf50;
+}

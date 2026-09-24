@@ -1,0 +1,297 @@
+<div class="order-details-page">
+
+  <!-- Back Button -->
+  <button
+    type="button"
+    class="back-button"
+    (click)="goToMyOrders()">
+    ← Back to My Orders
+  </button>
+
+
+  @if (order(); as currentOrder) {
+
+    <!-- Page Header -->
+    <div class="page-header">
+
+      <h1>Order Details 📦</h1>
+
+      <p>
+        Order #{{ currentOrder.id }}
+      </p>
+
+    </div>
+
+
+    <!-- Main Layout -->
+    <div class="details-layout">
+
+
+      <!-- ================================
+           Left Section
+           ================================ -->
+
+      <div class="details-main">
+
+
+        <!-- Restaurant -->
+        <div class="details-card">
+
+          <div class="restaurant-header">
+
+            <div class="restaurant-icon">
+              🍽️
+            </div>
+
+            <div>
+
+              <h2>
+                {{ currentOrder.restaurant.name }}
+              </h2>
+
+              <p>
+                Order #{{ currentOrder.id }}
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Order Status -->
+        <div class="details-card">
+
+          <h2>Order Status</h2>
+
+
+          <!-- Current Status -->
+          <div class="current-status">
+
+            <span>
+              Current Status
+            </span>
+
+            <strong>
+              {{ currentOrder.status }}
+            </strong>
+
+          </div>
+
+
+          <!-- Status Timeline -->
+          <div class="status-timeline">
+
+            @for (
+              status of [
+                'Pending',
+                'Accepted',
+                'Preparing',
+                'Ready',
+                'Assigned',
+                'PickedUp',
+                'OnTheWay',
+                'Delivered'
+              ];
+              track status
+            ) {
+
+              <div
+                class="status-step"
+                [class.completed]="
+                  getStatusClass(
+                    status,
+                    currentOrder.status
+                  ) === 'completed'
+                "
+                [class.current]="
+                  getStatusClass(
+                    status,
+                    currentOrder.status
+                  ) === 'current'
+                "
+                [class.upcoming]="
+                  getStatusClass(
+                    status,
+                    currentOrder.status
+                  ) === 'upcoming'
+                ">
+
+                <div class="status-dot">
+
+                  @if (
+                    getStatusClass(
+                      status,
+                      currentOrder.status
+                    ) === 'completed'
+                  ) {
+
+                    ✓
+
+                  } @else {
+
+                    {{ $index + 1 }}
+
+                  }
+
+                </div>
+
+                <span>
+                  {{ status }}
+                </span>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- Order Items -->
+        <div class="details-card">
+
+          <h2>Order Items</h2>
+
+
+          @for (
+            item of currentOrder.items;
+            track item.id
+          ) {
+
+            <div class="order-item">
+
+              <div class="food-icon">
+                🍽️
+              </div>
+
+
+              <div class="item-info">
+
+                <h3>
+                  {{ item.menuItemName }}
+                </h3>
+
+                <p>
+                  ₹{{ item.unitPrice }}
+                  × {{ item.quantity }}
+                </p>
+
+              </div>
+
+
+              <strong>
+                ₹{{ item.subTotal }}
+              </strong>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================
+           Right Section
+           ================================ -->
+
+      <div class="details-sidebar">
+
+
+        <!-- Delivery Address -->
+        <div class="details-card">
+
+          <h2>
+            Delivery Address 📍
+          </h2>
+
+          <p class="address">
+            {{ currentOrder.deliveryAddress }}
+          </p>
+
+        </div>
+
+
+        <!-- Bill Details -->
+        <div class="details-card bill-card">
+
+          <h2>
+            Bill Details
+          </h2>
+
+
+          <div class="bill-row">
+
+            <span>
+              Items
+            </span>
+
+            <span>
+              {{ currentOrder.items.length }}
+            </span>
+
+          </div>
+
+
+          <div class="bill-row">
+
+            <span>
+              Delivery Fee
+            </span>
+
+            <span>
+              Free
+            </span>
+
+          </div>
+
+
+          <div class="divider"></div>
+
+
+          <div class="total-row">
+
+            <span>
+              Total
+            </span>
+
+            <strong>
+              ₹{{ currentOrder.totalAmount }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  } @else {
+
+
+    <!-- Loading -->
+    <div class="loading">
+
+      <div class="loading-icon">
+        📦
+      </div>
+
+      <h2>
+        Loading order...
+      </h2>
+
+      <p>
+        Please wait while we load your order details.
+      </p>
+
+    </div>
+
+  }
+
+</div>

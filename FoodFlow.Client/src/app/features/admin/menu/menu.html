@@ -1,0 +1,300 @@
+<div class="menu-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+
+    <div>
+      <h1>Menu Management 🍽️</h1>
+
+      <p>
+        Add, edit and manage your restaurant food items.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="add-button"
+      (click)="openAddForm()">
+      + Add Food
+    </button>
+
+  </div>
+
+
+  <!-- ADD / EDIT FORM -->
+  @if (showForm) {
+
+    <div class="form-card">
+
+      <div class="form-header">
+
+        <h2>
+          {{ editingItemId === null
+            ? 'Add Food'
+            : 'Edit Food' }}
+        </h2>
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeForm()">
+          ✕
+        </button>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <!-- Food Name -->
+        <div class="form-group">
+
+          <label>Food Name</label>
+
+          <input
+            type="text"
+            [(ngModel)]="food.name"
+            placeholder="Enter food name">
+
+        </div>
+
+
+        <!-- Category -->
+        <div class="form-group">
+
+          <label>Category</label>
+
+          <input
+            type="text"
+            [(ngModel)]="food.category"
+            placeholder="e.g. Pizza, Burger, Biryani">
+
+        </div>
+
+
+        <!-- Price -->
+        <div class="form-group">
+
+          <label>Price</label>
+
+          <input
+            type="number"
+            [(ngModel)]="food.price"
+            min="1"
+            placeholder="Enter price">
+
+        </div>
+
+
+        <!-- Image URL -->
+        <div class="form-group">
+
+          <label>Image URL</label>
+
+          <input
+            type="text"
+            [(ngModel)]="food.imageUrl"
+            placeholder="Enter image URL">
+
+        </div>
+
+
+        <!-- Description -->
+        <div class="form-group full-width">
+
+          <label>Description</label>
+
+          <textarea
+            [(ngModel)]="food.description"
+            rows="3"
+            placeholder="Enter food description"></textarea>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORM BUTTONS -->
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="closeForm()">
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="save-button"
+          (click)="saveFood()">
+
+          {{ editingItemId === null
+            ? 'Add Food'
+            : 'Update Food' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- EMPTY MENU -->
+  @if (menuItems().length === 0 && !showForm) {
+
+    <div class="empty-menu">
+
+      <div class="empty-icon">
+        🍽️
+      </div>
+
+      <h2>No food items yet</h2>
+
+      <p>
+        Add your first food item to your restaurant menu.
+      </p>
+
+      <button
+        type="button"
+        class="add-button"
+        (click)="openAddForm()">
+        + Add Food
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- MENU ITEMS -->
+  @if (menuItems().length > 0) {
+
+    <div class="menu-grid">
+
+      @for (item of menuItems(); track item.id) {
+
+        <div
+          class="food-card"
+          [class.unavailable]="!item.isAvailable">
+
+
+          <!-- IMAGE -->
+          @if (item.imageUrl) {
+
+            <img
+              [src]="item.imageUrl"
+              [alt]="item.name"
+              class="food-image">
+
+          } @else {
+
+            <div class="food-image-placeholder">
+              🍽️
+            </div>
+
+          }
+
+
+          <!-- CONTENT -->
+          <div class="food-content">
+
+            <div class="food-top">
+
+              <div>
+
+                <h2>
+                  {{ item.name }}
+                </h2>
+
+                <span class="category">
+                  {{ item.category }}
+                </span>
+
+              </div>
+
+
+              <!-- AVAILABILITY STATUS -->
+              @if (item.isAvailable) {
+
+                <span class="available">
+                  Available
+                </span>
+
+              } @else {
+
+                <span class="unavailable-label">
+                  Unavailable
+                </span>
+
+              }
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+            <p class="description">
+              {{ item.description }}
+            </p>
+
+
+            <!-- PRICE + ACTIONS -->
+            <div class="food-bottom">
+
+              <strong class="price">
+                ₹{{ item.price }}
+              </strong>
+
+
+              <div class="actions">
+
+                <!-- AVAILABILITY -->
+                <button
+                  type="button"
+                  class="availability-button"
+                  [class.make-unavailable]="item.isAvailable"
+                  [class.make-available]="!item.isAvailable"
+                  (click)="toggleAvailability(item)">
+
+                  {{ item.isAvailable
+                    ? 'Make Unavailable'
+                    : 'Make Available' }}
+
+                </button>
+
+
+                <!-- EDIT -->
+                <button
+                  type="button"
+                  class="edit-button"
+                  (click)="openEditForm(item)">
+                  ✏️ Edit
+                </button>
+
+
+                <!-- DELETE -->
+                <button
+                  type="button"
+                  class="delete-button"
+                  (click)="deleteFood(item.id)">
+                  🗑️ Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>
+

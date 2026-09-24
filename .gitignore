@@ -1,0 +1,10 @@
+.vs/
+**/bin/
+**/obj/
+node_modules/
+dist/
+.angular/
+.env
+appsettings.Development.json
+secrets.json
+*.csproj.user

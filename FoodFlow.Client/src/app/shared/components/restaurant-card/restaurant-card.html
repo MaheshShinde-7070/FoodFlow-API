@@ -1,0 +1,11 @@
+<div class="restaurant-card">
+
+  <h3>{{ restaurant.name }}</h3>
+
+  <p>{{ restaurant.description }}</p>
+
+  <a [routerLink]="['/menu', restaurant.id]">
+    View Menu
+  </a>
+
+</div>

@@ -1,0 +1,47 @@
+<nav class="navbar">
+
+  <h2 class="logo">FoodFlow 🍔</h2>
+
+  <!-- Customer -->
+  @if (authService.role() === 'Customer') {
+    <div class="nav-links">
+      <a routerLink="/home">Home</a>
+      <a routerLink="/my-orders">My Orders 📦</a>
+      <a routerLink="/cart">Cart 🛒</a>
+
+      <button (click)="logout()">Logout</button>
+    </div>
+  }
+
+  <!-- Restaurant / Admin -->
+  @if (authService.role() === 'Admin') {
+    <div class="nav-links">
+      <a routerLink="/admin/orders">Restaurant Dashboard</a>
+
+      <button (click)="logout()">Logout</button>
+    </div>
+  }
+
+  <!-- Delivery Partner -->
+  @if (authService.role() === 'DeliveryPartner') {
+    <div class="nav-links">
+      <a routerLink="/delivery/dashboard">Delivery Dashboard 🚴</a>
+
+      <button (click)="logout()">Logout</button>
+    </div>
+  }
+
+  <!-- Guest -->
+  @if (authService.role() === null) {
+    <div class="nav-links">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+      <a routerLink="/delivery-register">
+        Delivery Partner Register
+      </a>
+    </div>
+  }
+
+</nav>
+
+<router-outlet></router-outlet>
