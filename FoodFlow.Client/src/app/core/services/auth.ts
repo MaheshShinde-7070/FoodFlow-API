@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private apiUrl = 'https://localhost:7172/api/Auth';
+  private apiUrl = 'https://foodflow-api-st1v.onrender.com/api/Auth';
 
   // Current logged-in user's role
   role = signal<string | null>(localStorage.getItem('role'));
@@ -36,7 +36,7 @@ export class AuthService {
     vehicleNumber: string
   ) {
     return this.http.post(
-      'https://foodflow-api-st1v.onrender.com',
+      `${this.apiUrl}/register-delivery-partner`,
       {
         name,
         email,
