@@ -108,7 +108,11 @@ app.UseCors("AllowAngular");
 // Configure the HTTP request pipeline.
 
     app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodFlow API V1");
+    options.RoutePrefix = "swagger";
+});
 
 
 //app.UseHttpsRedirection();
