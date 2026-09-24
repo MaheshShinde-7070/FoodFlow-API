@@ -111,7 +111,7 @@ app.UseCors("AllowAngular");
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodFlow API V1");
-    options.RoutePrefix = "swagger";
+    options.RoutePrefix = "";
 });
 
 
