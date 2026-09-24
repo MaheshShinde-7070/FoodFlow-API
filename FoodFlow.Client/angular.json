@@ -16,6 +16,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/FoodFlow.Client",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
