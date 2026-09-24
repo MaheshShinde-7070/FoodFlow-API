@@ -36,7 +36,7 @@ export class AuthService {
     vehicleNumber: string
   ) {
     return this.http.post(
-      'https://localhost:7172/api/Auth/register-delivery-partner',
+      'https://foodflow-api-st1v.onrender.com',
       {
         name,
         email,

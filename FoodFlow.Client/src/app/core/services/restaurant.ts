@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RestaurantService {
 
-  private apiUrl = 'https://localhost:7172/api/Restaurant';
+  private apiUrl = 'https://foodflow-api-st1v.onrender.com';
 
   constructor(private http: HttpClient) {}
 

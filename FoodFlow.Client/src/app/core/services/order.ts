@@ -7,10 +7,10 @@ import { CreateOrder } from '../models/order.model';
 })
 export class OrderService {
 
-  private apiUrl = 'https://localhost:7172/api/Order';
+  private apiUrl = 'https://foodflow-api-st1v.onrender.com';
 
   private deliveryPartnerApiUrl =
-    'https://localhost:7172/api/DeliveryPartner';
+    'https://foodflow-api-st1v.onrender.com';
 
   constructor(private http: HttpClient) {}
 
