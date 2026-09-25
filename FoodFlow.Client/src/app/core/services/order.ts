@@ -7,10 +7,11 @@ import { CreateOrder } from '../models/order.model';
 })
 export class OrderService {
 
-  private apiUrl = 'https://foodflow-api-st1v.onrender.com';
+  private apiUrl =
+    'https://foodflow-api-st1v.onrender.com/api/Order';
 
   private deliveryPartnerApiUrl =
-    'https://foodflow-api-st1v.onrender.com';
+    'https://foodflow-api-st1v.onrender.com/api/DeliveryPartner';
 
   constructor(private http: HttpClient) {}
 
@@ -139,12 +140,10 @@ export class OrderService {
     );
   }
 
-  
-// Delivery Partner: Get my profile
-getDeliveryPartnerProfile() {
-  return this.http.get<any>(
-    `${this.deliveryPartnerApiUrl}/my-profile`
-  );
-}
-
+  // Delivery Partner: Get my profile
+  getDeliveryPartnerProfile() {
+    return this.http.get<any>(
+      `${this.deliveryPartnerApiUrl}/my-profile`
+    );
+  }
 }

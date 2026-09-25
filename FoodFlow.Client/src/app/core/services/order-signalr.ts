@@ -10,7 +10,7 @@ export class OrderSignalrService {
 
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://foodflow-api-st1v.onrender.com')
+      .withUrl('https://foodflow-api-st1v.onrender.com/orderHub')
       .withAutomaticReconnect()
       .build();
   }
