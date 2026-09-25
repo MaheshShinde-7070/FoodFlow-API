@@ -498,38 +498,47 @@ public class OrderController : ControllerBase
     [HttpPatch("{id}/assign-delivery-partner")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AssignDeliveryPartner(
-    int id,
-    AssignDeliveryPartnerDto dto)
+      int id,
+      AssignDeliveryPartnerDto dto)
     {
         var order = await _context.Orders
+            .Include(x => x.Restaurant)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (order == null)
+        {
             return NotFound(new
             {
                 message = "Order not found."
             });
+        }
 
         if (order.Status != "Ready")
+        {
             return BadRequest(new
             {
                 message = $"Order cannot be assigned because its current status is '{order.Status}'."
             });
+        }
 
         var deliveryPartner = await _context.DeliveryPartners
             .FirstOrDefaultAsync(x => x.Id == dto.DeliveryPartnerId);
 
         if (deliveryPartner == null)
+        {
             return NotFound(new
             {
                 message = "Delivery partner not found."
             });
+        }
 
         if (!deliveryPartner.IsAvailable)
+        {
             return BadRequest(new
             {
                 message = "Delivery partner is currently unavailable."
             });
+        }
 
         order.DeliveryPartnerId = deliveryPartner.Id;
         order.Status = "Assigned";
@@ -539,13 +548,15 @@ public class OrderController : ControllerBase
 
         await _context.SaveChangesAsync();
 
+        // Notify the assigned delivery partner
         await _hubContext.Clients
-     .Group($"delivery-partner-{deliveryPartner.Id}")
-     .SendAsync("OrderAssigned", new
-     {
-         orderId = order.Id,
-         status = order.Status
-     });
+            .Group($"delivery-partner-{deliveryPartner.Id}")
+            .SendAsync("OrderAssigned", new
+            {
+                orderId = order.Id,
+                status = order.Status,
+                restaurantName = order.Restaurant!.Name
+            });
 
         return Ok(new
         {

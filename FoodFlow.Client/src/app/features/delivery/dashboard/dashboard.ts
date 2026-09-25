@@ -12,6 +12,7 @@ export class Dashboard implements OnInit, OnDestroy {
 
   orders = signal<any[]>([]);
   deliveryPartner = signal<any>(null);
+  notification = signal<string | null>(null);
 
   private hubConnection!: signalR.HubConnection;
 
@@ -61,16 +62,30 @@ export class Dashboard implements OnInit, OnDestroy {
       .build();
 
     // When restaurant assigns a new order
-    this.hubConnection.on(
-      'OrderAssigned',
-      (data: { orderId: number; status: string }) => {
+   this.hubConnection.on(
+  'OrderAssigned',
+  (data: {
+    orderId: number;
+    status: string;
+    restaurantName: string;
+  }) => {
 
-        console.log('New order assigned:', data);
+    console.log('New order received:', data);
 
-        // Reload orders automatically
-        this.loadOrders();
-      }
+    // Show notification
+    this.notification.set(
+      `New order received from ${data.restaurantName}`
     );
+
+    // Automatically refresh orders
+    this.loadOrders();
+
+    // Hide notification after 5 seconds
+    setTimeout(() => {
+      this.notification.set(null);
+    }, 5000);
+  }
+);
 
     this.hubConnection.start()
       .then(async () => {

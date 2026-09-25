@@ -606,3 +606,50 @@
   }
 
 }
+.notification-popup {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  min-width: 320px;
+  padding: 18px 22px;
+
+  background: white;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+
+  animation: slideIn 0.3s ease;
+}
+
+.notification-icon {
+  font-size: 30px;
+}
+
+.notification-content strong {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.notification-content p {
+  margin: 0;
+  font-size: 14px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
