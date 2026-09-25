@@ -23,6 +23,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
+    
     public async Task<IActionResult> Register(RegisterDto dto)
     {
         // Check whether email already exists
@@ -182,4 +183,5 @@ public class AuthController : ControllerBase
             partnerId = partner.Id
         });
     }
+    
 }
