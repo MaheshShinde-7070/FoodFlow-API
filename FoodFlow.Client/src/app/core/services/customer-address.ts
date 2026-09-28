@@ -8,7 +8,7 @@ export class CustomerAddressService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'https://foodflow-api-st1v.onrender.com';
+  private apiUrl = 'https://foodflow-api-st1v.onrender.com/api/CustomerAddress';
 
   getAddresses() {
     return this.http.get<any[]>(this.apiUrl);
