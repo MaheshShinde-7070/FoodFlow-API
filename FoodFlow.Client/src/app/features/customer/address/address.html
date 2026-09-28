@@ -1,0 +1,69 @@
+<div class="address-page">
+
+  <h2>My Addresses</h2>
+
+  <!-- Add Address Form -->
+  <div class="address-form">
+
+    <h3>Add New Address</h3>
+
+    <input
+      type="text"
+      [(ngModel)]="address"
+      placeholder="Enter your address"
+    />
+
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="isDefault"
+      />
+      Set as default
+    </label>
+
+    <button
+  type="button"
+  (click)="getCurrentLocation()">
+  Use Current Location
+</button>
+@if (latitude !== 0 && longitude !== 0) {
+  <p>
+    Location:
+    {{ latitude }}, {{ longitude }}
+  </p>
+}
+
+    <button
+      type="button"
+      (click)="addAddress()">
+      Save Address
+    </button>
+
+  </div>
+
+
+  <!-- Saved Addresses -->
+
+  <h3>Saved Addresses</h3>
+
+  @if (addresses().length === 0) {
+
+    <p>No addresses saved.</p>
+
+  }
+
+  @for (address of addresses(); track address.id) {
+
+    <div class="address-card">
+
+      <p>{{ address.address }}</p>
+
+      @if (address.isDefault) {
+        <span class="default-badge">Default</span>
+      }
+
+    </div>
+
+  }
+
+</div>

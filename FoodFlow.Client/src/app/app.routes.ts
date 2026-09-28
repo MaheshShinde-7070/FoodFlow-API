@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { roleGuard } from './core/guards/role-guard';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -105,5 +106,12 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./features/admin/menu/menu')
       .then(m => m.Menu)
+},
+{
+  path: 'customer/address',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./features/customer/address/address')
+      .then(m => m.Address)
 }
 ];

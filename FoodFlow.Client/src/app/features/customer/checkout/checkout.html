@@ -42,19 +42,119 @@
       <!-- Order Details -->
       <div class="order-section">
 
-        <div class="section-card">
+        <!-- Delivery Address -->
+        <div class="section-card address-card">
 
           <h2>Delivery Address 📍</h2>
 
-          <div class="address-box">
+          @if (addresses().length === 0) {
 
-            <strong>Delivery Address</strong>
+            <p>No saved addresses found.</p>
 
-            <p>
-              Pune, Maharashtra
-            </p>
+            <button
+              type="button"
+              class="add-address-button"
+              (click)="showAddressForm = true">
+              + Add Address
+            </button>
 
-          </div>
+          } @else {
+
+            @for (address of addresses(); track address.id) {
+
+              <label class="address-option">
+
+                <input
+                  type="radio"
+                  name="deliveryAddress"
+                  [checked]="selectedAddressId() === address.id"
+                  (change)="selectedAddressId.set(address.id)"
+                />
+
+                <span>
+                  {{ address.address }}
+
+                  @if (address.isDefault) {
+                    <strong> (Default)</strong>
+                  }
+                </span>
+
+              </label>
+
+            }
+
+            <button
+              type="button"
+              class="add-address-button"
+              (click)="showAddressForm = true">
+              + Add New Address
+            </button>
+
+          }
+
+
+          <!-- New Address Form -->
+          @if (showAddressForm) {
+
+            <div class="new-address-form">
+
+              <h3>Add New Address</h3>
+
+              <input
+                type="text"
+                [(ngModel)]="newAddress"
+                placeholder="Enter delivery address"
+              />
+
+              <label class="default-address-label">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="newAddressIsDefault"
+                />
+                Set as default
+              </label>
+
+              <button
+                type="button"
+                class="location-button"
+                (click)="useCurrentLocation()">
+                📍 Use Current Location
+              </button>
+
+              @if (
+                newAddressLatitude !== 0 &&
+                newAddressLongitude !== 0
+              ) {
+
+                <p class="location-info">
+                  Location detected:
+                  {{ newAddressLatitude }},
+                  {{ newAddressLongitude }}
+                </p>
+
+              }
+
+              <div class="address-form-buttons">
+
+                <button
+                  type="button"
+                  class="save-address-button"
+                  (click)="saveNewAddress()">
+                  Save Address
+                </button>
+
+                <button
+                  type="button"
+                  class="cancel-button"
+                  (click)="showAddressForm = false">
+                  Cancel
+                </button>
+
+              </div>
+
+            </div>
+
+          }
 
         </div>
 

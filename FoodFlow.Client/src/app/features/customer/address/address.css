@@ -1,0 +1,70 @@
+.address-page {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.address-page h2 {
+  margin-bottom: 25px;
+}
+
+.address-form {
+  padding: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f8f8f8;
+}
+
+.address-form h3 {
+  margin-top: 0;
+}
+
+.address-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.address-form label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.address-form button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  background: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.address-form button:hover {
+  background: #218838;
+}
+
+.address-card {
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+}
+
+.address-card p {
+  margin: 0;
+}
+
+.default-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #28a745;
+  color: white;
+  font-size: 12px;
+}

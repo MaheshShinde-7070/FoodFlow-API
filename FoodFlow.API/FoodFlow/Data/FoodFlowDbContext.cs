@@ -23,6 +23,8 @@ public class FoodFlowDbContext : DbContext
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
     public DbSet<DeliveryPartner> DeliveryPartners => Set<DeliveryPartner>();
+
+    public DbSet<CustomerAddress> CustomerAddresses => Set<CustomerAddress>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
@@ -49,6 +51,12 @@ public class FoodFlowDbContext : DbContext
             .HasForeignKey(x => x.RestaurantId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<CustomerAddress>()
+    .HasOne<User>()
+    .WithMany()
+    .HasForeignKey(x => x.UserId)
+    .OnDelete(DeleteBehavior.Cascade);
+
         // Order → OrderItems
         modelBuilder.Entity<OrderItem>()
             .HasOne(x => x.Order)
@@ -74,6 +82,8 @@ public class FoodFlowDbContext : DbContext
     .WithMany()
     .HasForeignKey(x => x.DeliveryPartnerId)
     .OnDelete(DeleteBehavior.SetNull);
+
+
     }
 
 }
