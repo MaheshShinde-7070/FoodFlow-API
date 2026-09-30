@@ -1,26 +1,65 @@
-
 /* ================================
-   Back Button
+   Menu Card
    ================================ */
 
-.back-button {
-  display: inline-block;
-
-  margin-bottom: 25px;
-
-  color: #ff5722;
-
-  text-decoration: none;
-
-  font-size: 15px;
-
-  font-weight: 600;
-
-  transition: color 0.2s ease;
+.menu-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.back-button:hover {
-  color: #e64a19;
+.menu-card:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10);
+}
+
+
+/* ================================
+   Food Image - Portrait
+   ================================ */
+
+.food-image {
+  position: relative;
+
+  width: 100%;
+  height: 240px;
+
+  overflow: hidden;
+
+  border-radius: 12px 12px 0 0;
+
+  background: #f5f5f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ================================
+   Food Photo
+   ================================ */
+
+.food-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: filter 0.3s ease;
+}
+
+
+/* Subtle image effect */
+
+.menu-card:hover .food-image img {
+  filter: brightness(1.05);
+}
+
+
+/* ================================
+   Food Placeholder
+   ================================ */
+
+.food-placeholder {
+  font-size: 55px;
 }
 
 
@@ -38,8 +77,13 @@
    ================================ */
 
 .check-icon {
-  width: 70px;
-  height: 70px;
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;
@@ -48,11 +92,14 @@
   border-radius: 50%;
 
   background: #4caf50;
-
   color: white;
 
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+
+  animation: checkAppear 0.25s ease-out;
 }
 
 
@@ -62,12 +109,403 @@
 
 .menu-bottom .added-button {
   background: #4caf50;
-
   cursor: default;
-
   opacity: 1;
+
+  transition: background 0.2s ease;
 }
 
 .menu-bottom .added-button:hover {
   background: #4caf50;
+}
+
+
+/* ================================
+   Add To Cart Button
+   ================================ */
+
+.menu-bottom button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.menu-bottom button:not(.added-button):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.menu-bottom button:not(.added-button):active {
+  transform: translateY(0);
+}
+
+
+/* ================================
+   Check Animation
+   ================================ */
+
+@keyframes checkAppear {
+
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* ================================
+   Responsive
+   ================================ */
+
+@media (max-width: 768px) {
+
+  .food-image {
+    height: 220px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .food-image {
+    height: 200px;
+  }
+
+}
+/* ================================
+   Menu Card
+   ================================ */
+
+.menu-card {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
+
+  animation: cardReveal 0.5s ease both;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ================================
+   Food Image - Portrait
+   ================================ */
+
+.food-image {
+  position: relative;
+
+  width: 100%;
+  height: 240px;
+
+  overflow: hidden;
+
+  border-radius: 12px 12px 0 0;
+
+  background: #f5f5f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ================================
+   Food Photo
+   ================================ */
+
+.food-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
+}
+
+
+/* Gentle image animation */
+
+.menu-card:hover .food-image img {
+  transform: scale(1.04);
+  filter: brightness(1.05);
+}
+
+
+/* ================================
+   Image Overlay
+   ================================ */
+
+.food-image::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.15),
+    transparent 45%
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+
+  pointer-events: none;
+}
+
+.menu-card:hover .food-image::after {
+  opacity: 1;
+}
+
+
+/* ================================
+   Placeholder
+   ================================ */
+
+.food-placeholder {
+  font-size: 55px;
+
+  animation: placeholderFloat 2.5s ease-in-out infinite;
+}
+
+
+/* ================================
+   Added Check
+   ================================ */
+
+.check-icon {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #4caf50;
+  color: white;
+
+  font-size: 26px;
+  font-weight: bold;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  animation: checkPop 0.35s ease;
+}
+
+
+/* ================================
+   Add To Cart Button
+   ================================ */
+
+.menu-bottom button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.menu-bottom button:not(.added-button):hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu-bottom button:not(.added-button):active {
+  transform: scale(0.97);
+}
+
+
+/* ================================
+   Added Button
+   ================================ */
+
+.menu-bottom .added-button {
+  background: #4caf50;
+  cursor: default;
+  opacity: 1;
+
+  animation: buttonAppear 0.3s ease;
+}
+
+.menu-bottom .added-button:hover {
+  background: #4caf50;
+}
+
+
+/* ================================
+   Card Entrance Animation
+   ================================ */
+
+@keyframes cardReveal {
+
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* ================================
+   Check Animation
+   ================================ */
+
+@keyframes checkPop {
+
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  70% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* ================================
+   Added Button Animation
+   ================================ */
+
+@keyframes buttonAppear {
+
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* ================================
+   Placeholder Animation
+   ================================ */
+
+@keyframes placeholderFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+}
+
+
+/* ================================
+   Responsive
+   ================================ */
+
+@media (max-width: 768px) {
+
+  .food-image {
+    height: 220px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .food-image {
+    height: 200px;
+  }
+
+}
+/* ================================
+   Cart Actions
+   ================================ */
+
+.cart-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+/* ================================
+   Remove From Cart Button
+   ================================ */
+
+.remove-button {
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  background: #e53935;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.remove-button:hover {
+  background: #c62828;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.remove-button:active {
+  transform: scale(0.97);
+}
+
+
+/* ================================
+   Added Button
+   ================================ */
+
+.added-button {
+  cursor: default;
 }

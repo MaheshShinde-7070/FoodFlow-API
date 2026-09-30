@@ -7,9 +7,15 @@
 
   <!-- Header -->
   <div class="menu-header">
+
     <h1>Explore Our Menu 🍽️</h1>
-    <p>Choose your favourite dishes and add them to your cart.</p>
+
+    <p>
+      Choose your favourite dishes and add them to your cart.
+    </p>
+
   </div>
+
 
   <!-- Menu Items -->
   <div class="menu-grid">
@@ -24,21 +30,46 @@
         <!-- Food Image -->
         <div class="food-image">
 
-          @if (isAdded(item.id)) {
-            <span class="check-icon">✓</span>
+          @if (item.imageUrl) {
+
+            <img
+              [src]="item.imageUrl"
+              [alt]="item.name"
+            />
+
           } @else {
-            <span>🍽️</span>
+
+            <span class="food-placeholder">
+              🍽️
+            </span>
+
+          }
+
+
+          <!-- Added Indicator -->
+          @if (isAdded(item.id)) {
+
+            <span class="check-icon">
+              ✓
+            </span>
+
           }
 
         </div>
 
+
+        <!-- Menu Content -->
         <div class="menu-content">
 
-          <h3>{{ item.name }}</h3>
+          <h3>
+            {{ item.name }}
+          </h3>
+
 
           <p class="description">
             {{ item.description }}
           </p>
+
 
           <div class="menu-bottom">
 
@@ -46,20 +77,42 @@
               ₹{{ item.price }}
             </strong>
 
+
+            <!-- Item Already Added -->
             @if (isAdded(item.id)) {
 
+              <div class="cart-actions">
+
+                <button
+                  type="button"
+                  class="added-button"
+                  disabled
+                >
+                  ✓ Added to Cart
+                </button>
+
+
+                <button
+                  type="button"
+                  class="remove-button"
+                  (click)="removeFromCart(item.id)"
+                >
+                  Remove from Cart
+                </button>
+
+              </div>
+
+            }
+
+
+            <!-- Item Not Added -->
+            @else {
+
               <button
                 type="button"
-                class="added-button"
-                disabled>
-                ✓ Added to Cart
-              </button>
-
-            } @else {
-
-              <button
-                type="button"
-                (click)="addToCart(item)">
+                class="add-button"
+                (click)="addToCart(item)"
+              >
                 Add to Cart
               </button>
 

@@ -21,7 +21,7 @@ export class Menu implements OnInit {
     public cartService: CartService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.restaurantId = Number(
       this.route.snapshot.paramMap.get('id')
@@ -29,21 +29,35 @@ export class Menu implements OnInit {
 
     this.menuService.getMenu(this.restaurantId).subscribe({
       next: (data) => {
+
         this.menuItems.set(data);
-        console.log(data);
+
+        console.log('Menu items:', data);
+
       },
+
       error: (error) => {
-        console.error(error);
+
+        console.error('Failed to load menu:', error);
+
       }
     });
-
   }
 
-  addToCart(item: any) {
+  addToCart(item: any): void {
 
     this.cartService.addToCart(item);
 
     console.log('Added to cart:', item);
+
+  }
+
+  removeFromCart(itemId: number): void {
+
+    this.cartService.removeFromCart(itemId);
+
+    console.log('Removed from cart:', itemId);
+
   }
 
   isAdded(itemId: number): boolean {
@@ -51,5 +65,6 @@ export class Menu implements OnInit {
     return this.cartService
       .cartItems()
       .some(item => item.id === itemId);
+
   }
 }

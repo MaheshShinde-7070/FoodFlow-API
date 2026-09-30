@@ -94,6 +94,7 @@ saveNewAddress(): void {
   };
 
   this.addressService.addAddress(address).subscribe({
+
     next: () => {
 
       alert('Address saved successfully.');
@@ -108,12 +109,22 @@ saveNewAddress(): void {
     },
 
     error: (error) => {
+
       console.error('Failed to save address:', error);
-      alert(error.error?.message || 'Failed to save address.');
+
+      if (error.status === 409) {
+        alert('You already have this location saved.');
+        return;
+      }
+
+      alert(
+        error.error?.message ||
+        'Failed to save address.'
+      );
     }
+
   });
 }
-
   loadAddresses(): void {
 
     this.addressService.getAddresses().subscribe({
