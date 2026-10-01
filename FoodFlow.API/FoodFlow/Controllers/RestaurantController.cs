@@ -64,4 +64,11 @@ public class RestaurantController : ControllerBase
 
         return Ok(restaurant);
     }
+
+    [HttpGet("test-error")]
+    public IActionResult TestError()
+    {
+        throw new Exception("This is a test exception.");
+    }
+
 }

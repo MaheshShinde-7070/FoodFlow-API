@@ -1,3 +1,4 @@
+using FoodFlow.API.Middleware;
 using FoodFlow.Data;
 using FoodFlow.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -102,6 +103,8 @@ builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseCors("AllowAngular");
 
