@@ -14,7 +14,7 @@ namespace FoodFlow.Controllers;
 [Route("api/[controller]")]
 [Authorize]
 public class DeliveryPartnerController : ControllerBase
-{
+{   
     private readonly FoodFlowDbContext _context;
     private readonly IHubContext<OrderHub> _hubContext;
     public DeliveryPartnerController(
