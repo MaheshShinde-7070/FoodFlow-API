@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using FoodFlow.Hubs;
 using Microsoft.AspNetCore.SignalR;
-
+//updated it
 namespace FoodFlow.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
 public class DeliveryPartnerController : ControllerBase
-{
+{   
     private readonly FoodFlowDbContext _context;
     private readonly IHubContext<OrderHub> _hubContext;
     public DeliveryPartnerController(
@@ -133,7 +133,7 @@ public class DeliveryPartnerController : ControllerBase
             .Include(x => x.OrderItems)
                 .ThenInclude(x => x.MenuItem)
             .OrderByDescending(x => x.CreatedAt)
-            .Select(x => new
+            .Select(x => new  
             {
                 x.Id,
                 x.Status,
@@ -216,7 +216,8 @@ public class DeliveryPartnerController : ControllerBase
             status = order.Status
         });
     }
-
+       
+    //hii   hi
 
     [HttpPatch("orders/{orderId}/on-the-way")]
     public async Task<IActionResult> MarkOnTheWay(int orderId)
